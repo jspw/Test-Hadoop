@@ -30,7 +30,7 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
 
     export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     
-    export HADOOP_HOME=/media/jspw/EA70D14D70D1215D/Users/JackSparrow/Documents/Big-Data/hadoop
+    export HADOOP_HOME=/media/jspw/EA70D14D70D1215D/Users/JackSparrow/Documents/Big-Data/hadoop #location where you extract the tar.gz file
     
     export HADOOP_PREFIX=$HADOOP_HOME
     
