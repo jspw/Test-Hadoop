@@ -1,19 +1,25 @@
 # Test-Hadoop-
 
-install ssh `sudo apt install ssh` <br>
+- Install **ssh** `sudo apt install ssh` <br>
 
-install rsync `apt install rsync`<br>
+- Install **rsync** `apt install rsync`<br>
 
-ssh without passphase setup : `ssh-keygen -t rsa`<br>
+- **ssh** without **passphase** setup : `ssh-keygen -t rsa`<br>
 
-append : `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`<br>
+- append : `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`<br>
 
-now `ssh localhost` <br>
+- now `ssh localhost` <br>
 
-**if yet any error says "ssh: connect to host localhost port 22: Connection refused" ?**<br>
-restart ssh and again try to open localhost `service ssh restart` then `ssh localhost`
-or use this could be a permission issue so try `chmod -R 700 ~/.ssh`
-hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stable2/hadoop-3.2.1.tar.gz`
+    **if yet any error says "ssh: connect to host localhost port 22: Connection refused" ?**<br>
+    restart ssh and again try to open localhost <br>
+    - `service ssh restart`
+    - `ssh localhost`
+    **or use this could be a permission issue so try** 
+    - `chmod -R 700 ~/.ssh`
+
+<br><br>
+
+hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stable2/hadoop-3.2.1.tar.gz` <br>
 
 - extract the file using `tar -xzf filename.tar.gz`
 - copy the hadoopx.x.x folder to your desired place
@@ -38,9 +44,9 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
     alias hadoop=$HADOOP_HOME/bin/./hadoop #for convenience
     alias hdfs=$HADOOP_HOME/bin/./hdfs #for convenience
 
-    ##done
+    #done
 
-Reload by `source ./bashrc`
+- Reload by `source ./bashrc`
 
 - edit the xml files in `/etc/hadoop/` :
     - core-site.xml
@@ -72,14 +78,17 @@ Reload by `source ./bashrc`
     to get the JAVA_HOME path `readlink -f $(which java)`
 
 After everything done without any error ,
-Format Hadoop file system by running the command: `hadoop namenode -format` 
+<br>
+- Format Hadoop file system by running the command: `hadoop namenode -format` 
 
-to run hadoop : `$HADOOP_HOME/sbin/start-all.sh`
+- To run hadoop : `$HADOOP_HOME/sbin/start-all.sh`
+
+Now open your browser and go to `http://localhost:50070` you will get your hadoop working ! :D 
+
 
 Since Hadoop 3.0.0 - Alpha 1 there was a Change in the port configuration:
 
-Now open your browser and go to `http://localhost:50070` you will get your hadoop working ! 
-
 `http://localhost:50070` was moved to `http://localhost:9870`
 
-To check the process and port: `jps`
+- To check the process and port: `jps`
+
