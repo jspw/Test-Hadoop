@@ -62,6 +62,14 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
     >
         <configuration>
             <property>
+                 <name>dfs.name.dir</name>
+                 <value>file:///home/$whoami/pseudo/dfs/name</value>  #$whoami = use `whoami` command in terminal or your username in machine 
+               </property>
+               <property>
+                 <name>dfs.data.dir</name>
+                 <value>file:///home/$whoami/pseudo/dfs/data</value>
+            </property>
+            <property>
                 <name>dfs.replication</name>
                 <value>1</value>
             </property>
