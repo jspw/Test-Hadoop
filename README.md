@@ -1,55 +1,83 @@
-# Test-Hadoop-
+# Test-Hadoop
 
-- Install **ssh** `sudo apt install ssh` <br>
+## Install Hadoop: Setting up a Single Node Hadoop Cluster
+**Step 1)** 
+- Install **ssh** : `sudo apt install ssh` <br>
+  
+**Step 2)**
+- Install **rsync** : `sudo apt install rsync`<br>
 
-- Install **rsync** `apt install rsync`<br>
+**Step 3)**
 
 - **ssh** without **passphase** setup : `ssh-keygen -t rsa`<br>
 
+**Step 4)**
+
 - append : `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`<br>
+
+**Step 5)**
 
 - now `ssh localhost` <br>
 
-    **if yet any error says "ssh: connect to host localhost port 22: Connection refused" ?**<br>
-    restart ssh and again try to open localhost <br>
-    - `service ssh restart`
-    - `ssh localhost`
-    **or use this could be a permission issue so try** 
-    - `chmod -R 700 ~/.ssh`
-
-<br><br>
-
-hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stable2/hadoop-3.2.1.tar.gz` <br>
-
-- extract the file using `tar -xzf filename.tar.gz`
-- copy the hadoopx.x.x folder to your desired place
-- edit .bashrc file (copy paste the code below) which is located in your home directory
-
-> 
-    #for hadoop
-
-    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    - **Issue-1 : `ssh: connect to host localhost port 22: Connection refused` ?**<br>
     
-    export HADOOP_HOME=/media/jspw/EA70D14D70D1215D/Users/JackSparrow/Documents/Big-Data/hadoop #location where you extract the tar.gz file
-    
-    export HADOOP_PREFIX=$HADOOP_HOME
-    
-    export HADOOP_MAPRED_HOME=$HADOOP_HOME
-    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-    export HADOOP_COMMON_HOME=$HADOOP_HOME
-    export HADOOP_HDFS=$HADOOP_HOME
-    export YARN_HOME=$HADOOP_HOME
-    export HADOOP_USER_CLASSPATH_FIRST=true
+      - Restart ssh :  `service ssh restart` <br>
+      - Then run :  `ssh localhost`<br>
+  
+    - **Issue-2 :  `this could be a permission issue so try`** 
+      - `chmod -R 700 ~/.ssh`
 
-    alias hadoop=$HADOOP_HOME/bin/./hadoop #for convenience
-    alias hdfs=$HADOOP_HOME/bin/./hdfs #for convenience
+<br>
 
-    #done
+**Step 6)**
+
+  - **Hadoop** download link (stable) :
+    [Apache Hadoop](https://archive.apache.org/dist/hadoop/core/)
+
+    **I have installed [Hadoop-3.2.1](https://archive.apache.org/dist/hadoop/core/stable2/hadoop-3.2.1.tar.gz) and i prefer to downlaod this one.**
+
+**Step 7)**
+
+- Extract the file using `tar -xzf Hadoop-3.2.1.tar.gz`
+
+**Step 8)**
+
+- copy the Hadoop-3.2.1 folder to your desired place and rename it hadoop (such as /home/username/hadoop)
+
+**Step 9)**
+
+- edit ``.bashrc`` file [location : ~ (home directory)] and insert (>>) the code given below
+
+    > 
+        #for hadoop
+
+        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
+        
+        export HADOOP_HOME=/home/username/hadoop #location of your hadoop file directory
+
+        export HADOOP_MAPRED_HOME=$HADOOP_HOME
+        export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+        export HADOOP_COMMON_HOME=$HADOOP_HOME
+        export HADOOP_HDFS=$HADOOP_HOME
+        export YARN_HOME=$HADOOP_HOME
+        export HADOOP_USER_CLASSPATH_FIRST=true
+
+        alias hadoop=$HADOOP_HOME/bin/./hadoop #for convenience
+        alias hdfs=$HADOOP_HOME/bin/./hdfs #for convenience
+
+        #done
+
+
+    **To get the JAVA_JDK path command : `readlink -f $(which java)`**
+
+**Step 10)**
 
 - Reload by `source ./bashrc`
 
-- edit the xml files in `hadoop/etc/hadoop/` :
-    - core-site.xml
+**Step 11)**
+
+- edit the files in `hadoop/etc/hadoop/` :
+    - **core-site.xml** (append the given code below) :
     > 
         <configuration>
             <property>
@@ -58,16 +86,16 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
             </property>
         </configuration>
 
-    - hdfs-site.xml
+    - **hdfs-site.xml** (append the given code below) :
     >
         <configuration>
             <property>
                  <name>dfs.name.dir</name>
-                 <value>file:///home/$whoami/pseudo/dfs/name</value>  #$whoami = use `whoami` command in terminal or your username in machine 
+                 <value>file:///home/username/pseudo/dfs/name</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
                </property>
                <property>
                  <name>dfs.data.dir</name>
-                 <value>file:///home/$whoami/pseudo/dfs/data</value>
+                 <value>file:///home/username/pseudo/dfs/data</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
             </property>
             <property>
                 <name>dfs.replication</name>
@@ -75,19 +103,27 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
             </property>
         </configuration>
 
-    - mapred-site.xml (not necessary)
+    - **mapred-site.xml** (not necessary for now)
     >
 
 
-    - edit hadoop-env.sh file in /hadoop/etc/hadoop :
-    > 
-        export JAVA_HOME= java-jdk folder
+    - ``hadoop-env.sh`` (append the given code below) :
+        > 
+            export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
     
-    to get the JAVA_HOME path `readlink -f $(which java)`
+        **To get the JAVA_JDK path run : `readlink -f $(which java)`**
 
-After everything done without any error ,
 <br>
+
+**After everything done without any error** -> 
+
+<br>
+
+**Step 12)**
+
 - Format Hadoop file system by running the command: `hadoop namenode -format` 
+
+**Step 13)**
 
 - To run hadoop : `$HADOOP_HOME/sbin/start-all.sh`
 
