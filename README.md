@@ -48,7 +48,7 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
 
 - Reload by `source ./bashrc`
 
-- edit the xml files in `/etc/hadoop/` :
+- edit the xml files in `hadoop/etc/hadoop/` :
     - core-site.xml
     > 
         <configuration>
@@ -79,7 +79,7 @@ hadoop download link (stabl) :`https://archive.apache.org/dist/hadoop/core/stabl
     >
 
 
-- edit hadoop-env.sh file :
+    - edit hadoop-env.sh file in /hadoop/etc/hadoop :
     > 
         export JAVA_HOME= java-jdk folder
     
