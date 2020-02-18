@@ -1,6 +1,26 @@
 # Test-Hadoop
 
+The **Apache Hadoop** software library is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models. It is designed to scale up from single servers to thousands of machines, each offering local computation and storage. Rather than rely on hardware to deliver high-availability, the library itself is designed to detect and handle failures at the application layer, so delivering a highly-available service on top of a cluster of computers, each of which may be prone to failures.
+
+
+
+There are two ways to install **Hadoop**, i.e. **Single node** and **Multi node**.
+
+**Single node cluster** means only one DataNode running and setting up all the NameNode, DataNode, ResourceManager and NodeManager on a single machine. This is used for studying and testing purposes. For example, let us consider a sample data set inside a healthcare industry. So, for testing whether the Oozie jobs have scheduled all the processes like collecting, aggregating, storing and processing the data in a proper sequence, we use single node cluster. It can easily and efficiently test the sequential workflow in a smaller environment as compared to large environments which contains terabytes of data distributed across hundreds of machines. 
+
+While in a **Multi node cluster**, there are more than one DataNode running and each DataNode is running on different machines. The multi node cluster is practically used in organizations for analyzing Big Data. Considering the above example, in real time when we deal with petabytes of data, it needs to be distributed across hundreds of machines to be processed. Thus, here we use multi node cluster.
+
 ## Install Hadoop: Setting up a Single Node Hadoop Cluster
+
+### Prerequirments :
+
+**Step 0)** 
+
+ - Install java open-jdk-8 :
+   - Add repository :  `sudo add-apt-repository ppa:openjdk-r/ppa` 
+   - Update : `Sudo apt update`
+   - `sudo apt install openjdk-8-jdk` (incase of kali-linux just install jdk)
+
 **Step 1)** 
 - Install **ssh** : `sudo apt install ssh` <br>
   
@@ -28,6 +48,8 @@
       - `chmod -R 700 ~/.ssh`
 
 <br>
+
+### Main Install Process :
 
 **Step 6)**
 
@@ -103,9 +125,14 @@
             </property>
         </configuration>
 
-    - **mapred-site.xml** (not necessary for now)
-    >
-
+    - **mapred-site.xml** (append the given code below) :
+    > 
+         <configuration>
+            <property>
+            <name>mapred.job.tracker</name>
+            <value>localhost:8021</value>
+            </property>
+        </configuration>
 
     - ``hadoop-env.sh`` (append the given code below) :
         > 
