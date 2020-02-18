@@ -136,3 +136,7 @@ Since Hadoop 3.0.0 - Alpha 1 there was a Change in the port configuration:
 
 - To check the process and port: `jps`
 
+- Stop hadoop : ``$HADOOP_HOME/sbin/stop-all.sh``
+
+- After Machine (PC) started enable hadoop using ``$HADOOP_HOME/sbin/start-all.sh``
+
