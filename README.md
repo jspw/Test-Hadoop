@@ -167,3 +167,4 @@ Since Hadoop 3.0.0 - Alpha 1 there was a Change in the port configuration:
 
 - After Machine (PC) started enable hadoop using ``$HADOOP_HOME/sbin/start-all.sh``
 
+- The default port number to access all applications of cluster is 8088 `http://localhost:8088/`
