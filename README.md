@@ -46,6 +46,11 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
   
     - **Issue-2 :  `this could be a permission issue so try`** 
       - `chmod -R 700 ~/.ssh`
+      - `chmod 644 ~/.ssh/authorized_keys`
+      - `chmod 644 ~/.ssh/known_hosts`
+      - `chmod 644 ~/.ssh/config`
+      - `chmod 600 ~/.ssh/id_rsa`
+      - `chmod 644 ~/.ssh/id_rsa.pub`
 
 <br>
 
