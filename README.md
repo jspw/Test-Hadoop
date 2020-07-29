@@ -109,7 +109,7 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
 
 **Step 9)**
 
-- edit `.bashrc` file [location : `~` (home directory)] and insert (add) the code given below into `.bashrc`
+- edit `.bashrc` file [location : `~` (home directory)] and insert (add) the code given below into `.bashrc` 
 
 
     ```.bashrc
@@ -131,6 +131,7 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
 
     #done
     ```
+**Note :** Change `username` in `HADOOP_HOME` according to your username.
 
 **To get the `JAVA_JDK path` command :**
 
@@ -159,6 +160,8 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
     ```
 
     - **hdfs-site.xml** (append/add the given code below) :
+    
+    **Note :** Change `username` according to your username.
 
     ```xml
     
