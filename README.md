@@ -141,7 +141,7 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
 
 - Reload `.bashrc` file to effect the changes :
 
-  > source ./bashrc
+  > source .bashrc
 
 **Step 11)**
 
