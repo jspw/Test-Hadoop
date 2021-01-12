@@ -15,39 +15,77 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
 **Step 0)**
 
 - Install java open-jdk-8 :
-  - Add repository : `sudo add-apt-repository ppa:openjdk-r/ppa`
-  - Update : `Sudo apt update`
-  - `sudo apt install openjdk-8-jdk` (incase of kali-linux just install jdk)
+
+  - Add repository :
+
+    > sudo add-apt-repository ppa:openjdk-r/ppa
+
+  - Update :
+
+    > Sudo apt update
+
+  - Install :
+
+    > sudo apt install openjdk-8-jdk
+
+    **Note :** incase of kali-linux just install jdk
 
 **Step 1)**
 
-- Install **ssh** : `sudo apt install ssh` <br>
+- Install **ssh** :
+
+  > sudo apt install ssh
 
 **Step 2)**
 
-- Install **rsync** : `sudo apt install rsync`<br>
+- Install **rsync** :
+
+  > sudo apt install rsync
 
 **Step 3)**
 
-- **ssh** without **passphase** setup : `ssh-keygen -t rsa`<br>
+- **ssh** without **passphase** setup :
+  > ssh-keygen -t rsa
 
 **Step 4)**
 
-- append : `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`<br>
+- append :
+
+  > cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 **Step 5)**
 
-- now `ssh localhost` <br>
+- now
 
-  - **Issue-1 : `ssh: connect to host localhost port 22: Connection refused` ?**<br>
+  > ssh localhost
 
-    - Restart ssh : `service ssh restart` <br>
-    - Then run : `ssh localhost`<br>
+  - **Issue-1 :** `ssh: connect to host localhost port 22: Connection refused`
 
-  - **Issue-2 : `this could be a permission issue so try`**
-    - `chmod -R 700 ~/.ssh`
+    - Restart ssh :
 
-<br>
+      > service ssh restart
+
+  - **Issue-2 :** `this could be a permission issue so try`
+
+    - Using chmod :
+
+      > chmod -R 700 ~/.ssh
+
+      > chmod -R 700 ~/.ssh
+
+      > chmod 644 ~/.ssh/authorized_keys
+
+      > chmod 644 ~/.ssh/known_hosts
+
+      > chmod 644 ~/.ssh/config
+
+      > chmod 600 ~/.ssh/id_rsa
+
+      > chmod 644 ~/.ssh/id_rsa.pub
+
+  - Then again run :
+
+    > ssh localhost
 
 ### Main Install Process :
 
@@ -60,108 +98,130 @@ While in a **Multi node cluster**, there are more than one DataNode running and 
 
 **Step 7)**
 
-- Extract the file using `tar -xzf Hadoop-3.2.1.tar.gz`
+- Extract the file using
+  > tar -xzf Hadoop-3.2.1.tar.gz
 
 **Step 8)**
 
-- copy the Hadoop-3.2.1 folder to your desired place and rename it hadoop (such as /home/username/hadoop)
+- Copy the Hadoop-3.2.1 folder to your desired place and rename it hadoop (such as dir looks like /home/username/hadoop)
 
 **Step 9)**
 
-- edit `.bashrc` file [location : ~ (home directory)] and insert (>>) the code given below
+- edit `.bashrc` file [location : `~` (home directory)] and insert (add) the code given below into `.bashrc`
 
-  >
+```.bashrc
 
-        #for hadoop
+      #for hadoop
 
-        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
+      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
 
-        export HADOOP_HOME=/home/username/hadoop #location of your hadoop file directory
+      export HADOOP_HOME=/home/username/hadoop #location of your hadoop file directory
 
-        export HADOOP_MAPRED_HOME=$HADOOP_HOME
-        export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-        export HADOOP_COMMON_HOME=$HADOOP_HOME
-        export HADOOP_HDFS=$HADOOP_HOME
-        export YARN_HOME=$HADOOP_HOME
-        export HADOOP_USER_CLASSPATH_FIRST=true
+      export HADOOP_MAPRED_HOME=$HADOOP_HOME
+      export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+      export HADOOP_COMMON_HOME=$HADOOP_HOME
+      export HADOOP_HDFS=$HADOOP_HOME
+      export YARN_HOME=$HADOOP_HOME
+      export HADOOP_USER_CLASSPATH_FIRST=true
 
-        alias hadoop=$HADOOP_HOME/bin/./hadoop #for convenience
-        alias hdfs=$HADOOP_HOME/bin/./hdfs #for convenience
+      alias hadoop=$HADOOP_HOME/bin/./hadoop #for convenience
+      alias hdfs=$HADOOP_HOME/bin/./hdfs #for convenience
 
-        #done
+      #done
 
-  **To get the JAVA_JDK path command : `readlink -f $(which java)`**
+```
+
+**Note :** Change `username` in `HADOOP_HOME` according to your username.
+
+**To get the `JAVA_JDK path` command :**
+
+> readlink -f \$(which java)
 
 **Step 10)**
 
-- Reload by `source ./bashrc`
+- Reload `.bashrc` file to effect the changes :
+
+  > source .bashrc
 
 **Step 11)**
 
-- edit the files in `hadoop/etc/hadoop/` :
+- Edit the files in **`hadoop/etc/hadoop/`** :
 
-  - **core-site.xml** (append the given code below) :
+  - **core-site.xml** (append/add the given code below) :
 
-    >
+```xml
 
-        <configuration>
-            <property>
-                <name>fs.defaultFS</name>
-                <value>hdfs://localhost:9000</value>
-            </property>
-        </configuration>
+  <configuration>
+              <property>
+                  <name>fs.defaultFS</name>
+                  <value>hdfs://localhost:9000</value>
+              </property>
+  </configuration>
 
-  - **hdfs-site.xml** (append the given code below) :
+```
 
-    >
+- **hdfs-site.xml** (append/add the given code below) :
 
-        <configuration>
-            <property>
-                 <name>dfs.name.dir</name>
-                 <value>file:///home/username/pseudo/dfs/name</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
-               </property>
-               <property>
-                 <name>dfs.data.dir</name>
-                 <value>file:///home/username/pseudo/dfs/data</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
-            </property>
-            <property>
-                <name>dfs.replication</name>
-                <value>1</value>
-            </property>
-        </configuration>
+**Note :** Change `username` according to your username.
 
-  - **mapred-site.xml** (append the given code below) :
+```xml
 
-    >
+  <configuration>
+              <property>
+                  <name>dfs.name.dir</name>
+                  <value>file:///home/username/pseudo/dfs/name</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
+                  </property>
+                  <property>
+                  <name>dfs.data.dir</name>
+                  <value>file:///home/username/pseudo/dfs/data</value>  <!-- username = use `whoami` command in terminal to know your username in machine  -->
+              </property>
+              <property>
+                  <name>dfs.replication</name>
+                  <value>1</value>
+              </property>
+  </configuration>
 
-         <configuration>
-            <property>
-            <name>mapred.job.tracker</name>
-            <value>localhost:8021</value>
-            </property>
-        </configuration>
+```
 
-  - `hadoop-env.sh` (append the given code below) :
+- **mapred-site.xml** (append/add the given code below) :
 
-    >
+```xml
 
-          export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
+  <configuration>
+              <property>
+              <name>mapred.job.tracker</name>
+              <value>localhost:8021</value>
+              </property>
+  </configuration>
 
-    **To get the JAVA_JDK path run : `readlink -f $(which java)`**
+```
 
-<br>
+- **hadoop-env.sh** (append/add the given code below) :
 
-**After everything done without any error** ->
+```sh
 
-<br>
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 #JAVA_JDK directory
+
+```
+
+**To get the JAVA_JDK path run :**
+
+> readlink -f \$(which java)
+
+**After everything done without any error...**
 
 **Step 12)**
 
-- Format Hadoop file system by running the command: `hadoop namenode -format`
+- Format Hadoop file system by running the command:
+  > hadoop namenode -format
 
 **Step 13)**
 
-- To run hadoop : `$HADOOP_HOME/sbin/start-all.sh`
+- To run hadoop :
+
+  > $HADOOP_HOME/sbin/start-all.sh
+
+### Test
 
 Now open your browser and go to `http://localhost:50070` you will get your hadoop working ! :D
 
@@ -169,10 +229,16 @@ Since Hadoop 3.0.0 - Alpha 1 there was a Change in the port configuration:
 
 `http://localhost:50070` was moved to `http://localhost:9870`
 
-- To check the process and port: `jps`
+- To check the process and port:
 
-- Stop hadoop : `$HADOOP_HOME/sbin/stop-all.sh`
+  > jps
 
-- After Machine (PC) started enable hadoop using `$HADOOP_HOME/sbin/start-all.sh`
+- Stop hadoop :
+
+  > $HADOOP_HOME/sbin/stop-all.sh
+
+- After Machine (PC) started enable hadoop using
+
+  > $HADOOP_HOME/sbin/start-all.sh`
 
 - The default port number to access all applications of cluster is 8088 `http://localhost:8088/`
