@@ -138,7 +138,7 @@ Build Jar : `jar cfm ProductSalePerCountry.jar Manifest.txt SalesCountry/*.class
 
 We now have a jar file : `ProductSalePerCountry.jar`
 
-We need to download and copy the `input file` (CSV file) into the docker container : So Open your local machine terminal and run command : `docker localFileLocation containerId:directoryName`
+We need to download and copy the `input file` (CSV file) into the docker container : So Open your local machine terminal and run command : `docker cp  localFileLocation containerId:directoryName`
 
 Create a folder named input inside hadoop hdfs (in container terminal) : `hdfs dfs -mkdir input`
 
